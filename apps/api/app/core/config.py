@@ -1,8 +1,10 @@
-from pydantic import Field
-from pydantic_settings import BaseSettings, SettingsConfigDict
+import os
+from pathlib import Path
+
+from pydantic import BaseModel, Field
 
 
-class Settings(BaseSettings):
+class Settings(BaseModel):
     app_name: str = "AgentHub-Lite"
     app_version: str = "0.1.0"
     app_env: str = "local"
@@ -16,12 +18,33 @@ class Settings(BaseSettings):
     openai_compatible_api_key: str | None = None
     openai_compatible_model: str = "gpt-4.1-mini"
 
-    model_config = SettingsConfigDict(
-        env_file=".env",
-        env_file_encoding="utf-8",
-        extra="ignore",
-    )
+
+def _load_dotenv(path: Path) -> None:
+    if not path.exists():
+        return
+
+    for raw_line in path.read_text(encoding="utf-8").splitlines():
+        line = raw_line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, value = line.split("=", 1)
+        os.environ.setdefault(key.strip(), value.strip().strip('"').strip("'"))
 
 
-settings = Settings()
+def _env(name: str, default: str | None = None) -> str | None:
+    return os.environ.get(name, default)
 
+
+_load_dotenv(Path.cwd() / ".env")
+
+settings = Settings(
+    app_env=_env("APP_ENV", "local") or "local",
+    database_url=_env("DATABASE_URL", "sqlite:///./agenthub.db") or "sqlite:///./agenthub.db",
+    redis_url=_env("REDIS_URL", "redis://localhost:6379/0") or "redis://localhost:6379/0",
+    openai_compatible_base_url=(
+        _env("OPENAI_COMPATIBLE_BASE_URL", "https://api.openai.com/v1")
+        or "https://api.openai.com/v1"
+    ),
+    openai_compatible_api_key=_env("OPENAI_COMPATIBLE_API_KEY"),
+    openai_compatible_model=_env("OPENAI_COMPATIBLE_MODEL", "gpt-4.1-mini") or "gpt-4.1-mini",
+)
