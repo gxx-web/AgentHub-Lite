@@ -27,6 +27,83 @@ input:disabled {
   opacity: 0.7;
 }
 
+.login-shell {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  background:
+    linear-gradient(135deg, rgba(31, 122, 95, 0.08), rgba(64, 80, 100, 0.05)),
+    #f4f6f8;
+  padding: 24px;
+}
+
+.login-panel {
+  width: min(100%, 420px);
+  border: 1px solid #dde3ea;
+  border-radius: 8px;
+  background: #ffffff;
+  padding: 28px;
+  box-shadow: 0 20px 60px rgba(29, 39, 51, 0.08);
+}
+
+.login-brand {
+  margin-bottom: 24px;
+}
+
+.login-copy {
+  margin-bottom: 22px;
+}
+
+.login-copy h1 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.login-copy p {
+  margin: 8px 0 0;
+  color: #687586;
+}
+
+.login-form {
+  display: grid;
+  gap: 14px;
+}
+
+.login-form label {
+  display: grid;
+  gap: 6px;
+  color: #405064;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.login-form input {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid #cfd8e3;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #1d2733;
+  padding: 10px 12px;
+}
+
+.login-error {
+  border: 1px solid #f3b6b6;
+  border-radius: 8px;
+  background: #fff1f1;
+  color: #9b1c1c;
+  font-size: 13px;
+  line-height: 1.5;
+  padding: 10px 12px;
+}
+
+.login-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 2px;
+}
+
 .app-shell {
   display: grid;
   grid-template-columns: 260px minmax(0, 1fr);
@@ -178,6 +255,15 @@ input:disabled {
   grid-template-columns: minmax(260px, 0.36fr) minmax(420px, 1fr);
 }
 
+.agent-editor-layout {
+  grid-template-columns: minmax(320px, 0.42fr) minmax(520px, 1fr);
+}
+
+.single-panel-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
 .panel {
   min-width: 0;
   background: #ffffff;
@@ -259,6 +345,69 @@ input:disabled {
   white-space: nowrap;
 }
 
+.record-list {
+  display: grid;
+  gap: 8px;
+}
+
+.record-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+  border: 1px solid #dde3ea;
+  border-radius: 8px;
+  background: #ffffff;
+  padding: 8px;
+}
+
+.record-main {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  color: #405064;
+  cursor: pointer;
+  padding: 2px;
+  text-align: left;
+}
+
+.record-main strong,
+.record-main span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.record-main span {
+  color: #687586;
+  font-size: 12px;
+}
+
+.record-main.active strong,
+.record-main.active span {
+  color: #1f7a5f;
+}
+
+.record-row:has(.record-main.active) {
+  border-color: #1f7a5f;
+  background: #eef5f1;
+}
+
+.row-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.icon-button.danger {
+  color: #9b1c1c;
+}
+
+.compact-form textarea {
+  min-height: 96px;
+}
+
 .config-form {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -325,7 +474,7 @@ input:disabled {
 
 .chat-panel {
   display: grid;
-  grid-template-rows: auto auto minmax(360px, 1fr) auto;
+  grid-template-rows: auto auto minmax(300px, 1fr) auto auto;
   min-height: 720px;
 }
 
@@ -372,6 +521,69 @@ input:disabled {
   margin-top: 12px;
 }
 
+.run-log {
+  margin-top: 14px;
+  border-top: 1px solid #e2e8ef;
+  padding-top: 12px;
+}
+
+.run-log-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.compact-button {
+  min-height: 32px;
+  padding: 0 10px;
+}
+
+.run-list {
+  display: grid;
+  gap: 8px;
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+.run-item {
+  display: grid;
+  gap: 4px;
+  border: 1px solid #dde3ea;
+  border-radius: 8px;
+  background: #fbfcfd;
+  padding: 8px 10px;
+}
+
+.run-item div {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.run-item strong {
+  color: #1f7a5f;
+  font-size: 13px;
+}
+
+.run-item.failed strong {
+  color: #9b1c1c;
+}
+
+.run-item span,
+.run-item p {
+  margin: 0;
+  color: #687586;
+  font-size: 12px;
+}
+
+.run-item p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 @media (max-width: 1100px) {
   .app-shell {
     grid-template-columns: 1fr;
@@ -387,6 +599,10 @@ input:disabled {
   }
 
   .content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .agent-editor-layout {
     grid-template-columns: 1fr;
   }
 
@@ -411,6 +627,14 @@ input:disabled {
   }
 
   .composer {
+    grid-template-columns: 1fr;
+  }
+
+  .login-panel {
+    padding: 22px;
+  }
+
+  .login-actions {
     grid-template-columns: 1fr;
   }
 }

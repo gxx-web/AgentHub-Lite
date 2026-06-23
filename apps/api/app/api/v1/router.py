@@ -1,8 +1,9 @@
 from fastapi import APIRouter
 
-from app.api.v1.routes import agents, chat, model_providers, workspaces
+from app.api.v1.routes import agents, auth, chat, model_providers, workspaces
 
 api_router = APIRouter()
+api_router.include_router(auth.router, prefix="/auth", tags=["auth"])
 api_router.include_router(workspaces.router, prefix="/workspaces", tags=["workspaces"])
 api_router.include_router(model_providers.router, prefix="/model-providers", tags=["model-providers"])
 api_router.include_router(agents.router, prefix="/agents", tags=["agents"])

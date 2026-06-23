@@ -13,6 +13,17 @@ class ModelProviderRead(BaseModel):
     supports_tool_calling: bool
 
 
+class ModelProviderCreate(BaseModel):
+    name: str = Field(min_length=1, max_length=80)
+    provider_type: str = "openai-compatible"
+    base_url: str
+    api_key: str | None = None
+    default_model: str
+    available_models: list[str] = Field(default_factory=list)
+    supports_streaming: bool = True
+    supports_tool_calling: bool = True
+
+
 class ModelProviderUpdate(BaseModel):
     name: str | None = Field(default=None, min_length=1, max_length=80)
     provider_type: str | None = None

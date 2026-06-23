@@ -11,6 +11,8 @@ class Settings(BaseModel):
 
     database_url: str = "sqlite:///./agenthub.db"
     redis_url: str = "redis://localhost:6379/0"
+    jwt_secret_key: str = "agenthub-lite-dev-secret-change-me"
+    jwt_expires_minutes: int = 60 * 24
 
     cors_origins: list[str] = Field(default_factory=lambda: ["http://localhost:5173"])
 
@@ -41,6 +43,9 @@ settings = Settings(
     app_env=_env("APP_ENV", "local") or "local",
     database_url=_env("DATABASE_URL", "sqlite:///./agenthub.db") or "sqlite:///./agenthub.db",
     redis_url=_env("REDIS_URL", "redis://localhost:6379/0") or "redis://localhost:6379/0",
+    jwt_secret_key=_env("JWT_SECRET_KEY", "agenthub-lite-dev-secret-change-me")
+    or "agenthub-lite-dev-secret-change-me",
+    jwt_expires_minutes=int(_env("JWT_EXPIRES_MINUTES", str(60 * 24)) or str(60 * 24)),
     openai_compatible_base_url=(
         _env("OPENAI_COMPATIBLE_BASE_URL", "https://api.openai.com/v1")
         or "https://api.openai.com/v1"

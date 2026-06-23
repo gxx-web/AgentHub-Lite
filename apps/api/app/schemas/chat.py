@@ -42,9 +42,12 @@ class ConversationRead(BaseModel):
 class AgentRunRead(BaseModel):
     id: str
     agent_id: str
-    conversation_id: str
+    conversation_id: str | None = None
     status: str
     input: str
     output: str
+    model_name: str | None = None
+    error_message: str | None = None
     created_at: datetime
+    completed_at: datetime | None = None
 
